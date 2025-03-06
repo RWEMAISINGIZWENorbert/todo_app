@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:todo_app/Home.dart';
+import 'package:todo_app/todo_bloc/todo_bloc.dart';
 
 void main() async {
 
@@ -19,10 +22,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        home: Scaffold(
-
-        ),
+    return  MaterialApp(
+        home: BlocProvider<TodoBloc>(
+          create: (context) => TodoBloc()..add(
+            TodoStarted()
+            ),
+            child: Home(),
+          )
     );
   }
 }
