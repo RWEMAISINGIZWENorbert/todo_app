@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/data/todo.dart';
 import 'package:todo_app/todo_bloc/todo_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -38,7 +39,7 @@ class _HomeState extends State<Home> {
       TextEditingController controller2 = TextEditingController(); 
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.red[800],
       appBar: AppBar(
         title: Text('To Do app', style: GoogleFonts.aBeeZee(
             color: Colors.black12,
@@ -50,7 +51,36 @@ class _HomeState extends State<Home> {
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (context, state){
              if(state.status == TodoStatus.success){
-                return Container();
+                return ListView.builder(
+                  itemCount: state.todos.length,
+                  itemBuilder: (context, index) {
+                      return Card(
+                         elevation: 1,
+                         shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2)
+                         ),
+                         child: Slidable(
+                          key: const ValueKey(0),
+                          startActionPane: ActionPane(
+                            motion: const ScrollMotion(), 
+                            children: [
+                              SlidableAction(
+                                onPressed: (_) => removeTodo(state.todos[index]),
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white70,
+                                icon: Icons.delete,
+                                label: 'delete',
+                                )
+                            ]
+                            ),
+                          child: ListTile(
+                            title: Text(state.todos[index].title),
+                            subtitle: Text(state.todos[index].subTitle),
+                          ),
+                         ),
+                      );
+                  }
+                  );
              }else if(state.status == TodoStatus.initial){
               return CircularProgressIndicator();
              }else{
@@ -72,7 +102,7 @@ class _HomeState extends State<Home> {
                        controller: controller1,
                   ),
                     TextField(
-                       controller: controller1,
+                       controller: controller2,
                   ),
                   ]
                 ),
@@ -87,7 +117,11 @@ class _HomeState extends State<Home> {
                         child: Text("cancel")
                         ),
                       ElevatedButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          addTodo(
+                            Todo(title: controller1.text, subTitle: controller2.text)
+                          );
+                        }, 
                         child: Text("Update")
                         ),
                     ],
