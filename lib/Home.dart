@@ -55,13 +55,15 @@ class _HomeState extends State<Home> {
               Builder(
                 builder: (innerContext) {
                   return BlocBuilder<ThemeCubit, ThemeMode>(
-                    // buildWhen: (previousStae, currentState) => previousStae != currentState,
+                    buildWhen: (previousStae, currentState) => previousStae != currentState,
                     builder: (context, state) {
                       return GestureDetector(
                         onTap: () {
                            showPopover(
+                            arrowHeight: 0, // Removes the arrow
+                            arrowWidth: 0, //Removes the arrow
                             backgroundColor: Theme.of(context).cardColor,
-                            context: innerContext, 
+                            context: context, 
                             barrierDismissible: true,
                             width: 210,
                             height: 200,
