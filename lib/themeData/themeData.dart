@@ -40,12 +40,12 @@ ThemeData darkMoode = ThemeData(
         labelMedium: GoogleFonts.poppins(
           color: Colors.grey[300],
           fontSize: 18,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w500,
         ),
         labelSmall:  GoogleFonts.poppins(
           color: Colors.grey[400],
           fontSize: 13,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w400,
         )
       ),  
 );
