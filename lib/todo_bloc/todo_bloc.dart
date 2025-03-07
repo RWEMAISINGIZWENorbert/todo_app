@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:todo_app/data/todo.dart';
 
 part 'todo_event.dart';
