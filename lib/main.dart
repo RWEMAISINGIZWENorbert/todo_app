@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo_app/Home.dart';
+import 'package:todo_app/themeData/themeData.dart';
 import 'package:todo_app/todo_bloc/todo_bloc.dart';
 
 Future<void> main() async {
@@ -28,6 +29,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: lightMode,
+        darkTheme: darkMoode,
+        themeMode: ThemeMode.system,
         home: BlocProvider<TodoBloc>(
           create: (context) => TodoBloc(),
           // ..add(

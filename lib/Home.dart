@@ -39,13 +39,10 @@ class _HomeState extends State<Home> {
       TextEditingController controller2 = TextEditingController(); 
 
     return Scaffold(
-      backgroundColor: Colors.red[800],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('To Do app', style: GoogleFonts.aBeeZee(
-            color: Colors.black12,
-            fontSize: 24,
-            fontWeight: FontWeight.w800
-        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Text('To Do app', style: Theme.of(context).textTheme.titleMedium
         ),
       ),
       body: BlocBuilder<TodoBloc, TodoState>(
@@ -56,8 +53,9 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, index) {
                       return Card(
                          elevation: 1,
+                         color: Theme.of(context).cardColor,
                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2)
+                          borderRadius: BorderRadius.circular(8)
                          ),
                          child: Slidable(
                           key: const ValueKey(0),
@@ -76,12 +74,14 @@ class _HomeState extends State<Home> {
                           child: ListTile(
                             title: Text(state.todos[index].title),
                             subtitle: Text(state.todos[index].subTitle),
+                            titleTextStyle: Theme.of(context).textTheme.labelMedium,
+                            subtitleTextStyle: Theme.of(context).textTheme.labelSmall,
                           ),
                          ),
                       );
                   }
                   );
-             }else if(state.status == TodoStatus.initial){
+             }else if(state.status == TodoStatus.loading){
               return CircularProgressIndicator();
              }else{
               return Container();
@@ -107,31 +107,51 @@ class _HomeState extends State<Home> {
                   ]
                 ),
                 actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: (){
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text("cancel")
-                        ),
-                      ElevatedButton(
-                        onPressed: (){
-                          addTodo(
-                            Todo(title: controller1.text, subTitle: controller2.text)
-                          );
-                        }, 
-                        child: Text("Update")
-                        ),
-                    ],
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 18),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).pop();
+                          }, 
+                          child: Text("cancel", style: Theme.of(context).textTheme.labelSmall,),
+                          ),
+                        GestureDetector(
+                          onTap: (){
+                            addTodo(
+                              Todo(title: controller1.text, subTitle: controller2.text)
+                            );
+                            Navigator.of(context).pop();
+                          }, 
+                          child: Container(
+                            padding: EdgeInsets.symmetric( horizontal:  18, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.green[700],
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Text("Save", style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300
+                            ),)
+                            )
+                          ),
+                      ],
+                    ),
                   )
                 ],
               );
             }
             );
         },
-        child: Icon(Icons.add),
+        elevation: 0,
+        backgroundColor: Theme.of(context).cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: Icon(Icons.add, color: Theme.of(context).hintColor,),
         ),
     );
   }
