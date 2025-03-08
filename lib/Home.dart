@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
                     itemCount: state.todos.length,
                     itemBuilder: (context, index) {
                         return Card(
-                           elevation: 1,
+                           elevation: 0,
                            color: Theme.of(context).cardColor,
                            shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)
@@ -138,7 +138,9 @@ class _HomeState extends State<Home> {
                     }
                     );
                }else if(state.status == TodoStatus.loading){
-                return CircularProgressIndicator();
+                return Center(
+                  child: CircularProgressIndicator()
+                  );
                }else{
                 return Container();
                }
@@ -151,14 +153,16 @@ class _HomeState extends State<Home> {
               builder: (context){
                 return  AlertDialog(
                   backgroundColor: Theme.of(context).cardColor,
-                  title: Text("Add new Task"),
+                  title: Text("Add new Task", style: Theme.of(context).textTheme.labelMedium,),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextField(
+                        style: Theme.of(context).textTheme.labelSmall,
                          controller: controller1,
                     ),
                       TextField(
+                          style: Theme.of(context).textTheme.labelSmall,
                          controller: controller2,
                     ),
                     ]
