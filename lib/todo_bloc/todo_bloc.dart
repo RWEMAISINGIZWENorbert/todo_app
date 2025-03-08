@@ -114,4 +114,10 @@ class TodoBloc extends HydratedBloc<TodoEvent, TodoState> {
     return state.toJson();
     // throw UnimplementedError();
   }
+
+
+  // @override
+  // Map<String, dynamic>? toJson(TodoState state){
+  //   throw UnimplementedError();
+  // }
 }
