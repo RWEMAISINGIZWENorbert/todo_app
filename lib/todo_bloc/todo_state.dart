@@ -4,7 +4,7 @@ enum TodoStatus { initial, loading, success, error}
 
 class TodoState extends Equatable {
    final List<Todo> todos;
-   final  TodoStatus  status;
+   final TodoStatus status;
 
    const TodoState({
      this.todos = const <Todo> [],
